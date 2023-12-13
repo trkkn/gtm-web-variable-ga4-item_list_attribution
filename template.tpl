@@ -1,3 +1,11 @@
+___TERMS_OF_SERVICE___
+
+By creating or modifying this file you agree to Google Tag Manager's Community
+Template Gallery Developer Terms of Service available at
+https://developers.google.com/tag-manager/gallery-tos (or such other URL as
+Google may provide), as modified from time to time.
+
+
 ___INFO___
 
 {
@@ -7,15 +15,60 @@ ___INFO___
   "securityGroups": [],
   "displayName": "TRKKN - GA4 item_list_attribution",
   "description": "Persists available item list information (item_list_id, item_list_name, index) or creates item_list_name from a capturing ecommerce event along the purchase funnel for easy item list attribution.",
-  "containerContexts": ["WEB"],
-  "brand": {
-    "displayName": "Custom Template"
-  }
+  "containerContexts": [
+    "WEB"
+  ]
 }
 
-___NOTES___
 
-Created on 6.12.2023, 16:37:17
+___TEMPLATE_PARAMETERS___
+
+[
+  {
+    "type": "LABEL",
+    "name": "info",
+    "displayName": "The variable stores available item list information like \u003ci\u003eitem_list_id\u003c/i\u003e, \u003ci\u003eitem_list_name\u003c/i\u003e, \u003ci\u003eindex\u003c/i\u003e by \u003ci\u003eitem_id\u003c/i\u003e from the capturing event in a localStorage object. On all subsequent ecommerce events, it checks localStorage, adds available item list information to the \u003ci\u003eecommerce.items\u003c/i\u003e array and finally returns the whole \u003ci\u003eecommerce\u003c/i\u003e object.\u003cbr\u003e\u003cbr\u003e\nPREREQUESITES: All necessary \u003ca href\u003d\"https://developers.google.com/analytics/devguides/collection/ga4/ecommerce?hl\u003den\u0026client_type\u003dgtm\" target\u003d\"blank\"\u003eGA4 ecommerce dataLayer events\u003c/a\u003e are already set up on the page. \n\u003cbr\u003e\u003cbr\u003e\nDATA PRIVACY INFORMATION:  The tag sets a localStorage key \u003ci\u003etrkkn_gtm_item_list_attribution\u003c/i\u003e that contains the \u003ci\u003eitem_id\u003c/i\u003e with the corresponding item list information. The localStorage is deleted on the \u003ci\u003eUnset Event\u003c/i\u003e for clean data handling.\u003cbr\u003e\u003cbr\u003e"
+  },
+  {
+    "type": "SELECT",
+    "name": "mode",
+    "displayName": "Mode",
+    "macrosInSelect": true,
+    "selectItems": [
+      {
+        "value": "enrichment",
+        "displayValue": "enrichment"
+      },
+      {
+        "value": "link_id",
+        "displayValue": "link_id"
+      }
+    ],
+    "simpleValueType": true,
+    "help": "\u003cb\u003eenrichment:\u003c/b\u003e item list information is available in at least one ecommerce event like \u003ci\u003eselect_item\u003c/i\u003e or \u003ci\u003eview_item\u003c/i\u003e.\n \u003cbr\u003e\u003cbr\u003e\n\u003cb\u003elink_id:\u003c/b\u003e No item list information is available at all. You need to setup \u003ca href\u003d\"https://www.trkkn.com/insights/track-all-your-link-clicks-efficiently-with-TRKKN-link-id/\" target\u003d\"blank\"\u003eTRKKN link_id\u003c/a\u003e first in order to make this work!",
+    "alwaysInSummary": true
+  },
+  {
+    "type": "TEXT",
+    "name": "capturingEvent",
+    "displayName": "Capturing Event",
+    "simpleValueType": true,
+    "defaultValue": "select_item",
+    "alwaysInSummary": true,
+    "help": "\u003cb\u003eenrichment mode:\u003c/b\u003e The event, where item list information is present. Usually   \u003ci\u003eselect_item\u003c/i\u003e or \u003ci\u003eview_item\u003c/i\u003e.\n\u003cbr\u003e\u003cbr\u003e\n\u003cb\u003elink_id mode:\u003c/b\u003e  Usually the \u003ci\u003eview_item\u003c/i\u003e event, because when you click a product link in a product module (e.g search_results), you switch from a category to a product detail page. That is where link_id contains the information of the module (e.g. search_results) that has been clicked."
+  },
+  {
+    "type": "TEXT",
+    "name": "unsetEvent",
+    "displayName": "Unset Event",
+    "simpleValueType": true,
+    "defaultValue": "purchase",
+    "alwaysInSummary": true,
+    "help": "Usually the \u003ci\u003epurchase\u003c/i\u003e event. For clean data handling, the localStorage \u003ci\u003etrkkn_gtm_item_list_attribution\u003c/i\u003e object will be deleted after every purchase."
+  }
+]
+
+
 ___SANDBOXED_JS_FOR_WEB_TEMPLATE___
 
 const log = require("logToConsole");
@@ -205,71 +258,7 @@ function mergeObjects() {
   return result;
 }
 
-___TEMPLATE_PARAMETERS___
 
-[
-  {
-    "type": "LABEL",
-    "name": "info",
-    "displayName": "The variable stores available item list information like \u003ci\u003eitem_list_id\u003c/i\u003e, \u003ci\u003eitem_list_name\u003c/i\u003e, \u003ci\u003eindex\u003c/i\u003e by \u003ci\u003eitem_id\u003c/i\u003e from the capturing event in a localStorage object. On all subsequent ecommerce events, it checks localStorage, adds available item list information to the \u003ci\u003eecommerce.items\u003c/i\u003e array and finally returns the whole \u003ci\u003eecommerce\u003c/i\u003e object.\u003cbr\u003e\u003cbr\u003e\nPREREQUESITES: All necessary \u003ca href\u003d\"https://developers.google.com/analytics/devguides/collection/ga4/ecommerce?hl\u003den\u0026client_type\u003dgtm\" target\u003d\"blank\"\u003eGA4 ecommerce dataLayer events\u003c/a\u003e are already set up on the page. \n\u003cbr\u003e\u003cbr\u003e\nDATA PRIVACY INFORMATION:  The tag sets a localStorage key \u003ci\u003etrkkn_gtm_item_list_attribution\u003c/i\u003e that contains the \u003ci\u003eitem_id\u003c/i\u003e with the corresponding item list information. The localStorage is deleted on the \u003ci\u003eUnset Event\u003c/i\u003e for clean data handling.\u003cbr\u003e\u003cbr\u003e"
-  },
-  {
-    "type": "SELECT",
-    "name": "mode",
-    "displayName": "Mode",
-    "macrosInSelect": true,
-    "selectItems": [
-      {
-        "value": "enrichment",
-        "displayValue": "enrichment"
-      },
-      {
-        "value": "link_id",
-        "displayValue": "link_id"
-      }
-    ],
-    "simpleValueType": true,
-    "help": "\u003cb\u003eenrichment:\u003c/b\u003e item list information is available in at least one ecommerce event like \u003ci\u003eselect_item\u003c/i\u003e or \u003ci\u003eview_item\u003c/i\u003e.\n \u003cbr\u003e\u003cbr\u003e\n\u003cb\u003elink_id:\u003c/b\u003e No item list information is available at all. You need to setup \u003ca href\u003d\"https://www.trkkn.com/insights/track-all-your-link-clicks-efficiently-with-TRKKN-link-id/\" target\u003d\"blank\"\u003eTRKKN link_id\u003c/a\u003e first in order to make this work!",
-    "alwaysInSummary": true
-  },
-  {
-    "type": "TEXT",
-    "name": "capturingEvent",
-    "displayName": "Capturing Event",
-    "simpleValueType": true,
-    "defaultValue": "select_item",
-    "alwaysInSummary": true,
-    "help": "\u003cb\u003eenrichment mode:\u003c/b\u003e The event, where item list information is present. Usually   \u003ci\u003eselect_item\u003c/i\u003e or \u003ci\u003eview_item\u003c/i\u003e.\n\u003cbr\u003e\u003cbr\u003e\n\u003cb\u003elink_id mode:\u003c/b\u003e  Usually the \u003ci\u003eview_item\u003c/i\u003e event, because when you click a product link in a product module (e.g search_results), you switch from a category to a product detail page. That is where link_id contains the information of the module (e.g. search_results) that has been clicked."
-  },
-  {
-    "type": "TEXT",
-    "name": "unsetEvent",
-    "displayName": "Unset Event",
-    "simpleValueType": true,
-    "defaultValue": "purchase",
-    "alwaysInSummary": true,
-    "help": "Usually the \u003ci\u003epurchase\u003c/i\u003e event. For clean data handling, the localStorage \u003ci\u003etrkkn_gtm_item_list_attribution\u003c/i\u003e object will be deleted after every purchase."
-  }
-]
-
-___TERMS_OF_SERVICE___
-
-By creating or modifying this file you agree to Google Tag Manager's Community
-Template Gallery Developer Terms of Service available at
-https://developers.google.com/tag-manager/gallery-tos (or such other URL as
-Google may provide), as modified from time to time.
-
-___TESTS___
-
-scenarios:
-- name: 'sampleTest'
-  code: |-
-    const log = require('logToConsole');
-    log('hello world');
-    
-    assertApi('logToConsole').wasCalled();
-    
-    
 ___WEB_PERMISSIONS___
 
 [
@@ -499,3 +488,21 @@ ___WEB_PERMISSIONS___
     "isRequired": true
   }
 ]
+
+
+___TESTS___
+
+scenarios:
+- name: sampleTest
+  code: |-
+    const log = require('logToConsole');
+    log('hello world');
+
+    assertApi('logToConsole').wasCalled();
+
+
+___NOTES___
+
+Created on 6.12.2023, 16:37:17
+
+
