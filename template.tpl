@@ -17,6 +17,11 @@ ___INFO___
   "description": "Persists available item list information (item_list_id, item_list_name, index) or creates item_list_name from a capturing ecommerce event along the purchase funnel for easy item list attribution.",
   "containerContexts": [
     "WEB"
+  ],
+  "categories": [
+    "ANALYTICS",
+    "MARKETING",
+    "UTILITY"
   ]
 }
 
@@ -88,7 +93,7 @@ if (
   !queryPermission("access_globals", "read", "trkknSettings.page_link_id")
 ) {
   log("missing permissions");
-  return undefined;
+  return;
 }
 
 return main();
@@ -97,7 +102,7 @@ return main();
 function main() {
   const ecomObject = getEcomObjectFromDL();
   if (!ecomObject) {
-    return undefined;
+    return;
   }
 
   const gtmEventId = copyFromDataLayer("gtm.uniqueEventId");
@@ -209,7 +214,7 @@ function enrichEcomItems(ecomObject, mode) {
 
     if (mode !== "link_id") {
       log("enrichEcomItems: enriching NON link id for", itemId, storedItem);
-      currentDlItems[i] = mergeObjects(storedItem, currentDlItems[i]);
+      currentDlItems[i] = mergeObjects(currentDlItems[i], storedItem);
     }
   }
 }
