@@ -1,5 +1,7 @@
 homepage: "https://trkkn.com/"
 documentation: "https://github.com/trakken/gtm-web-variable-ga4-item_list_attribution/blob/main/README.md"
 versions:
+  - sha: 6e634917196a2b30450110c3dc711021170f52a6
+    changeNotes: FIX: issue that sometimes the value in ecom items array was not overriden if it existed already.
   - sha: 1ac610a2d1fd773e2d47d4d9b0c21e9bbe5b6e35
     changeNotes: first great version.🎈
